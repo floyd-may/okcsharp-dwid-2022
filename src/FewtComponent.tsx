@@ -17,6 +17,17 @@ type SortState =
   | "Callries Ascending"
   | "Callries Descending"
 
+const nameClickMap: Partial<Record<SortState, SortState>> = {
+  "Default": "Name Ascending",
+  "Name Ascending": "Name Descending",
+  "Name Descending": "Default",
+}
+const callriesClickMap: Partial<Record<SortState, SortState>> = {
+  "Default": "Callries Ascending",
+  "Callries Ascending": "Callries Descending",
+  "Callries Descending": "Default",
+}
+
 export const FewtComponent: React.FC<FewtComponentProps> = ({ data }) => {
   const [sortState, setSortState] = useState<SortState>("Default");
 
@@ -31,19 +42,13 @@ export const FewtComponent: React.FC<FewtComponentProps> = ({ data }) => {
     : data;
 
   const handleNameSortClick = () => {
-    if(sortState === "Name Ascending") {
-      setSortState("Name Descending");
-    } else {
-      setSortState("Name Ascending");
-    }
+    const destState = nameClickMap[sortState] || "Name Ascending";
+    setSortState(destState);
   }
 
   const handleCallriesSortClick = () => {
-    if(sortState === "Callries Ascending") {
-      setSortState("Callries Descending");
-    } else {
-      setSortState("Callries Ascending");
-    }
+    const destState = callriesClickMap[sortState] || "Callries Ascending";
+    setSortState(destState);
   }
 
   return (

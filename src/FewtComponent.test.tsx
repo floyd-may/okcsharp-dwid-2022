@@ -15,7 +15,7 @@ const getNamesFromData = () =>
     .map(x => x.innerHTML);
 
 
-describe('fewtTable component', () => {
+describe('FewtComponent', () => {
   it('should display fewt in source order', () => {
     render(<FewtComponent data={exampleFewt} />);
 
@@ -52,6 +52,22 @@ describe('fewtTable component', () => {
       'Magno',
       'Gurps',
       'Blanabba',
+    ]);
+  })
+
+  it('should sort by data source default on three clicks of first name sort', () => {
+    render(<FewtComponent data={exampleFewt} />);
+
+    const button = screen.getByRole("button", { name: /Sort by name/i })
+    userEvent.click(button);
+    userEvent.click(button);
+    userEvent.click(button);
+
+    expect(getNamesFromData()).toEqual([
+      'Magno',
+      'Gurps',
+      'Blanabba',
+      'Ornj',
     ]);
   })
 
